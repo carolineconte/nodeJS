@@ -9,5 +9,6 @@ const PhotoSchema = new Schema({
     modified_at: { type: String, require: true },
     hashtags: { type: String, require: true }
 });
+const imgschema = mongoose.model("Photo", PhotoSchema);
 
-module.exports = mongoose.model("Photo", PhotoSchema);
+module.exports = imgschema,PhotoSchema
