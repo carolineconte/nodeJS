@@ -6,7 +6,7 @@ const getAllAlbuns = async (req, res) => {
         const getAll = await Album.find({});
         res.status(200).json(getAll);
     } catch (error) {
-        res.status(500).json({ message: `${error.message} - Falha na requisicao` });
+        res.status(500).json({ message: `${error.message} - error` });
     }
 }
 

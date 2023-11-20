@@ -35,8 +35,8 @@ const newImage = async (req, res) => {
 
         res.json({ img: img, msg: "image save!" })
 
-    } catch (e) {
-        res.status(500).json({ message: `${e.message}` })
+    } catch (error) {
+        res.status(500).json({ message: `${error.message} - error` })
     }
 }
 
@@ -45,7 +45,7 @@ const getAllImages = async (req, res) => {
         const album = await Album.findById(req.params.id);
         res.status(200).json(album.imgs);
     } catch (error) {
-        res.status(500).json({ message: `${error.message} - Falha na requisicao` });
+        res.status(500).json({ message: `${error.message} - error` });
     }
 }
 
@@ -62,7 +62,7 @@ const getOneImageByID = async (req, res) => {
 
         res.status(200).json(imgSelected);
     } catch (error) {
-        res.status(500).json({ message: `${error.message} - Falha na requisicao` });
+        res.status(500).json({ message: `${error.message} - error` });
     }
 }
 
@@ -80,7 +80,7 @@ const deleteIMG = async (req, res) => {
 
         res.status(200).json({ message: 'deleted' });
     } catch (error) {
-        res.status(500).json({ message: `${error.message} - Falha na requisicao` });
+        res.status(500).json({ message: `${error.message} - Error request` });
     }
 }
 
@@ -94,7 +94,7 @@ const attPHOTO = async (req, res) => {
         const imgToUpdate = album.imgs.find(img => img._id == req.params.idIMG);
         const test = req.params.idIMG
         console.log(test,name, description, hashtags, title)
-        
+
         imgToUpdate.name = name;
         imgToUpdate.title = title;
         imgToUpdate.description = description;
@@ -103,10 +103,10 @@ const attPHOTO = async (req, res) => {
 
         await album.save();
 
-        res.status(200).json({ message: "album att successfully" });
+        res.status(200).json({ message: "Img att successfully" });
 
     } catch (error) {
-        console.log(error)
+        console.log({ message: `${error.message} - Error request` })
     }
 }
 

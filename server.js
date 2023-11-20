@@ -31,10 +31,6 @@ app.delete('/collection/album/:id/photo/:idIMG', deleteIMG)
 app.put('/collection/album/:id/photo/:idIMG', attPHOTO)
 
 
-
-
-
-
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
     console.log(`Server listen: http://localhost:${PORT}`);

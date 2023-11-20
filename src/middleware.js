@@ -11,6 +11,8 @@ function errorControlAlbum(req, res, next) {
     next()
 }
 
+//TODO middleware upload img
+
 module.exports = {
     errorControlAlbum,
     
