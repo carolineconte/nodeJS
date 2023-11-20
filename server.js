@@ -9,7 +9,7 @@ require("./src/connect.js");
 
 //controller
 const { getAllAlbuns, newAlbum, deleteAlbum, attAlbum } = require('./src/controllersAlbum.js')
-const { newImage,getAllImages } = require('./src/controllersImg.js')
+const { newImage,getAllImages,getOneImageByID,deleteIMG,attPHOTO } = require('./src/controllersImg.js')
 
 //MIDDLEWARE
 const { errorControlAlbum } = require('./src/middleware.js')
@@ -26,7 +26,9 @@ app.delete('/collection/album/:id', deleteAlbum);
 
 app.get('/collection/album/:id', getAllImages)
 app.post('/collection/album/:id', upload.single("file"), newImage)
-app.post('/collection/album/:id', newImage)
+app.get('/collection/album/:id/photo/:idIMG', getOneImageByID)
+app.delete('/collection/album/:id/photo/:idIMG', deleteIMG)
+app.put('/collection/album/:id/photo/:idIMG', attPHOTO)
 
 
 

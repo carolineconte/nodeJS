@@ -32,6 +32,7 @@ const newImage = async (req, res) => {
         console.log(album.modified_at)
         await album.save();
 
+
         res.json({ img: img, msg: "image save!" })
 
     } catch (e) {
@@ -50,15 +51,69 @@ const getAllImages = async (req, res) => {
 
 const getOneImageByID = async (req, res) => {
     try {
-        const imgSelected = await photo.findById(req.params.id);
+
+        const album = await Album.findById(req.params.id);
+
+        const imgSelected = album.imgs.find(img => img._id == req.params.idIMG);
+
+        if (!imgSelected) {
+            return res.status(404).json({ message: "Image not found in the album" });
+        }
+
         res.status(200).json(imgSelected);
     } catch (error) {
         res.status(500).json({ message: `${error.message} - Falha na requisicao` });
     }
 }
 
+const deleteIMG = async (req, res) => {
+    try {
+
+        const album = await Album.findById(req.params.id);
+
+        const imgs = album.imgs
+        imgs.map(img => {
+            if (img._id !== req.params.idIMG) {
+                return img
+            }
+        });
+
+        res.status(200).json({ message: 'deleted' });
+    } catch (error) {
+        res.status(500).json({ message: `${error.message} - Falha na requisicao` });
+    }
+}
+
+const attPHOTO = async (req, res) => {
+    try {
+        const album = await Album.findById(req.params.id);
+
+        const { name, description, hashtags, title } = req.body
+        const dateUTC = new Date(Date.now()).toUTCString();
+
+        const imgToUpdate = album.imgs.find(img => img._id == req.params.idIMG);
+        const test = req.params.idIMG
+        console.log(test,name, description, hashtags, title)
+        
+        imgToUpdate.name = name;
+        imgToUpdate.title = title;
+        imgToUpdate.description = description;
+        imgToUpdate.modified_at = dateUTC;
+        imgToUpdate.hashtags = hashtags;
+
+        await album.save();
+
+        res.status(200).json({ message: "album att successfully" });
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports = {
     newImage,
     getAllImages,
-    getOneImageByID
+    getOneImageByID,
+    deleteIMG,
+    attPHOTO
 }
