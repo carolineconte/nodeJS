@@ -64,8 +64,6 @@ const attAlbum = async (req, res) => {
     }
 }
 
-
-
 module.exports = {
     getAllAlbuns,
     newAlbum,
